@@ -10,6 +10,14 @@ import Foundation
 import XCTest
 
 open class CucumberTest: XCTestCase {
+    static var didRun = false
+    
+    open override func invokeTest() {
+        guard !Self.didRun else {return}
+        Self.didRun = true
+        super.invokeTest()
+    }
+
     override public class var defaultTestSuite: XCTestSuite {
         Cucumber.shared.reporters.forEach { $0.testSuiteStarted(at: Date()) }
 
